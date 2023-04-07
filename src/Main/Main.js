@@ -1,7 +1,8 @@
 import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
 import { defaultClothingItems } from "../Util/Constants";
-
+import "./Main.css";
+import "../ItemCard/ItemCard.css";
 function Main({ weatherTemp, onSelectCard }) {
   return (
     <main className="main">
