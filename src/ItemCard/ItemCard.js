@@ -1,9 +1,13 @@
-const ItemCard = ({ x }) => {
+const ItemCard = ({ x, onSelectCard }) => {
   return (
-    <div>
+    <div className="card_element">
       <div>
-        <img src={x.link} className="card_image" />
-      </div>{" "}
+        <img
+          src={x.link}
+          className="card_image"
+          onClick={() => onSelectCard(x)}
+        />
+      </div>
       <div className="card_name">{x.name}</div>
     </div>
   );
