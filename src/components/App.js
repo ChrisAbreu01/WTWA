@@ -21,6 +21,9 @@ function App() {
     setActiveModal("preview");
     setSelectedCard(card);
   };
+  const handleSubmitForm = () => {
+    handleCloseModal();
+  };
   useEffect(() => {
     getForecastWeather().then((data) => {
       const temperature = parseWeatherData(data);
@@ -34,7 +37,13 @@ function App() {
       <Main weatherTemp={temp} onSelectCard={handleSelectedCard} />
       <Footer />
       {activeModal === "create" && (
-        <ModalWithForm title="New Garment" onClose={handleCloseModal}>
+        <ModalWithForm
+          title="New Garment"
+          onClose={handleCloseModal}
+          buttonText="Add garment"
+          name="Name"
+          handleSubmitForm={handleSubmitForm}
+        >
           <div className="modal_inputs">
             <div className="modal_input">
               <label>
