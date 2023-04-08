@@ -1,5 +1,5 @@
 import "./Header.css";
-function Header({ onCreateModal }) {
+function Header({ onCreateModal, place }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -16,7 +16,9 @@ function Header({ onCreateModal }) {
               className="header_logo-image"
             />
           </div>
-          <div>{currentDate}, Philadelphia</div>
+          <div>
+            {currentDate}, {place}
+          </div>
         </div>
         <div className="header__avatar-logo">
           <div>

@@ -74,3 +74,4 @@ export const weatherOptions = [
     type: "storm",
   },
 ];
+export const APIkey = "e46bec6f352ff5e083dc942432494a41";
