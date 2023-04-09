@@ -11,7 +11,7 @@ function Header({ onCreateModal, place }) {
         <div className="header__logo">
           <div>
             <img
-              src={require("../images/logo.svg").default}
+              src={require("../../images/logo.svg").default}
               alt="logo"
               className="header_logo-image"
             />
@@ -33,7 +33,10 @@ function Header({ onCreateModal, place }) {
           </div>
           <div className="header_name">Terrence Tegegne</div>
           <div className="header_avatar">
-            <img src={require("../images/avatar.svg").default} alt="avatar" />
+            <img
+              src={require("../../images/avatar.svg").default}
+              alt="avatar"
+            />
           </div>
         </div>
       </header>
