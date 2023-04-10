@@ -1,4 +1,6 @@
 import "./Header.css";
+import logoImage from "../../images/logo.svg";
+import avatarImage from "../../images/avatar.svg";
 function Header({ onCreateModal, place }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
@@ -10,11 +12,7 @@ function Header({ onCreateModal, place }) {
       <header className="header">
         <div className="header__logo">
           <div>
-            <img
-              src={require("../../images/logo.svg").default}
-              alt="logo"
-              className="header_logo-image"
-            />
+            <img src={logoImage} alt="logo" className="header_logo-image" />
           </div>
           <div>
             {currentDate}, {place}
@@ -27,16 +25,12 @@ function Header({ onCreateModal, place }) {
               type="button"
               onClick={onCreateModal}
             >
-              {" "}
               + Add New Clothes
             </button>
           </div>
           <div className="header_name">Terrence Tegegne</div>
           <div className="header_avatar">
-            <img
-              src={require("../../images/avatar.svg").default}
-              alt="avatar"
-            />
+            <img src={avatarImage} alt="avatar" />
           </div>
         </div>
       </header>

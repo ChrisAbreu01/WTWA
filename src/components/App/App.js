@@ -1,11 +1,11 @@
 import "./App.css";
-import Header from "./Header/Header";
-import Main from "./Main/Main";
-import Footer from "./Footer/Footer";
-import ModalWithForm from "./ModalWithForm/ModalWithForm";
+import Header from "../Header/Header";
+import Main from "../Main/Main";
+import Footer from "../Footer/Footer";
+import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useEffect, useState } from "react";
-import ItemModal from "./ItemModal/ItemModal";
-import { getForecastWeather, parseWeatherData } from "../utils/WeatherApi";
+import ItemModal from "../ItemModal/ItemModal";
+import { getForecastWeather, parseWeatherData } from "../../utils/weatherApi";
 function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
@@ -25,11 +25,15 @@ function App() {
     handleCloseModal();
   };
   useEffect(() => {
-    getForecastWeather().then((data) => {
-      const temperature = parseWeatherData(data);
-      setTemp(temperature);
-      setPlace(data.name);
-    });
+    getForecastWeather()
+      .then((data) => {
+        const temperature = parseWeatherData(data);
+        setTemp(temperature);
+        setPlace(data.name);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
   return (
     <div className="app">
@@ -58,7 +62,7 @@ function App() {
                 ></input>
               </label>
             </div>
-            <div className="modal_input" id="modal_input-link">
+            <div className="modal_input modal_input-link">
               <label>
                 <div>Image</div>
                 <input
@@ -72,7 +76,7 @@ function App() {
               </label>
             </div>
           </div>
-          <p className="modal_weather-subtitle">select the weather type:</p>
+          <p className="modal_weather-subtitle">Select the weather type:</p>
           <div>
             <div className="modal_weather-option">
               <input type="radio" id="hot" value="hot" />
@@ -80,11 +84,11 @@ function App() {
             </div>
             <div className="modal_weather-option">
               <input type="radio" id="warm" value="warm" />
-              <label>warm</label>
+              <label>Warm</label>
             </div>
             <div className="modal_weather-option-last">
               <input type="radio" id="cold" value="cold" />
-              <label>cold</label>
+              <label>Cold</label>
             </div>
           </div>
         </ModalWithForm>

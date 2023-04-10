@@ -18,6 +18,8 @@
     position: relative;
     width: 100%;
     height: 100%;
+    font-size: 16px;
+    line-height: 20px;
 }
 .modal_inputs{
     display: flex;
@@ -47,11 +49,12 @@
     background-color: white;
     right: 31px;
     top: 23px;
+    cursor: pointer;
 }
 .modal_title{
     margin: 0 0 24px 0;
 }
-#modal_input-link{
+.modal_input-link{
     margin-top: 24px;
 }
 .modal_weather-subtitle{
@@ -72,6 +75,7 @@
     background-color: black;
     color: white;
     border-radius: 4px;
+    cursor: pointer;
 }
 .modal_submit:hover{
     background: rgba(0, 0, 0, 0.6);

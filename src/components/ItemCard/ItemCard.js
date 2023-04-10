@@ -1,15 +1,16 @@
 import "./ItemCard.css";
-const ItemCard = ({ x, onSelectCard }) => {
+const ItemCard = ({ card, onSelectCard }) => {
   return (
     <div className="card_element">
       <div>
         <img
-          src={x.link}
+          src={card.link}
           className="card_image"
-          onClick={() => onSelectCard(x)}
+          onClick={() => onSelectCard(card)}
+          alt="item"
         />
       </div>
-      <div className="card_name">{x.name}</div>
+      <div className="card_name">{card.name}</div>
     </div>
   );
 };
