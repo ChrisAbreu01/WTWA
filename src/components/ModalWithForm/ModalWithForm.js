@@ -1,7 +1,7 @@
 import "./ModalWithForm.css";
 const ModalWithForm = ({
   children,
-  buttonText = "Add garment",
+  buttonText,
   title,
   onClose,
   handleSubmitForm,
