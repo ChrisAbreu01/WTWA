@@ -6,11 +6,16 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useEffect, useState } from "react";
 import ItemModal from "../ItemModal/ItemModal";
 import { getForecastWeather, parseWeatherData } from "../../utils/weatherApi";
+import { ToggleSwitchContext } from "../ToggleSwitch/ToggleSwitchContext";
 function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [temp, setTemp] = useState(0);
   const [place, setPlace] = useState("");
+  const [checked, setChecked] = useState(false);
+  const handleChange = () => {
+    setChecked(!checked);
+  };
   const handleCreateModal = () => {
     setActiveModal("create");
   };
@@ -37,8 +42,14 @@ function App() {
   }, []);
   return (
     <div className="app">
-      <Header onCreateModal={handleCreateModal} place={place} />
-      <Main weatherTemp={temp} onSelectCard={handleSelectedCard} />
+      <ToggleSwitchContext.Provider value={checked}>
+        <Header
+          onCreateModal={handleCreateModal}
+          place={place}
+          setChecked={handleChange}
+        />
+        <Main weatherTemp={temp} onSelectCard={handleSelectedCard} />
+      </ToggleSwitchContext.Provider>
       <Footer />
       {activeModal === "create" && (
         <ModalWithForm

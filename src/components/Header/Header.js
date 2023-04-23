@@ -1,12 +1,15 @@
+import React from "react";
 import "./Header.css";
 import logoImage from "../../images/logo.svg";
 import avatarImage from "../../images/avatar.svg";
-function Header({ onCreateModal, place }) {
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch.js";
+import { ToggleSwitchContext } from "../ToggleSwitch/ToggleSwitchContext";
+function Header({ onCreateModal, place, setChecked }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
-
+  const currentValue = React.useContext(ToggleSwitchContext);
   return (
     <div>
       <header className="header">
@@ -19,6 +22,9 @@ function Header({ onCreateModal, place }) {
           </div>
         </div>
         <div className="header__avatar-logo">
+          <div className="header_toggle">
+            <ToggleSwitch value={currentValue} handleToggle={setChecked} />
+          </div>
           <div>
             <button
               className="header__button"
