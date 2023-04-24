@@ -9,6 +9,9 @@
   }
   .header_toggle{
       height: 100%;
+          display: flex;
+            flex-direction: column;
+            justify-content: center;
   }
   .header__logo{
     display: flex;

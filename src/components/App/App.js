@@ -1,5 +1,6 @@
 import "./App.css";
 import Header from "../Header/Header";
+import { Route } from "react-router-dom";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
@@ -7,6 +8,8 @@ import { useEffect, useState } from "react";
 import ItemModal from "../ItemModal/ItemModal";
 import { getForecastWeather, parseWeatherData } from "../../utils/weatherApi";
 import { ToggleSwitchContext } from "../ToggleSwitch/ToggleSwitchContext";
+import Profile from "../Profile/Profile";
+import { Switch } from "react-router-dom/cjs/react-router-dom.min";
 function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
@@ -48,9 +51,16 @@ function App() {
           place={place}
           setChecked={handleChange}
         />
-        <Main weatherTemp={temp} onSelectCard={handleSelectedCard} />
+        <Switch>
+          <Route exact path="/">
+            <Main weatherTemp={temp} onSelectCard={handleSelectedCard} />
+          </Route>
+          <Route exact path="/profile">
+            <Profile onSelectCard={handleSelectedCard} />
+          </Route>
+        </Switch>
       </ToggleSwitchContext.Provider>
-      <Footer />
+
       {activeModal === "create" && (
         <ModalWithForm
           title="New Garment"
@@ -107,6 +117,7 @@ function App() {
       {activeModal === "preview" && (
         <ItemModal selectedCard={selectedCard} onClose={handleCloseModal} />
       )}
+      <Footer />
     </div>
   );
 }

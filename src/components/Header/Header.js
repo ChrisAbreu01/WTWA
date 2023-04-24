@@ -1,5 +1,6 @@
 import React from "react";
 import "./Header.css";
+import { Link } from "react-router-dom";
 import logoImage from "../../images/logo.svg";
 import avatarImage from "../../images/avatar.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch.js";
@@ -14,9 +15,11 @@ function Header({ onCreateModal, place, setChecked }) {
     <div>
       <header className="header">
         <div className="header__logo">
-          <div>
-            <img src={logoImage} alt="logo" className="header_logo-image" />
-          </div>
+          <Link to="/">
+            <div>
+              <img src={logoImage} alt="logo" className="header_logo-image" />
+            </div>
+          </Link>
           <div>
             {currentDate}, {place}
           </div>
@@ -35,9 +38,11 @@ function Header({ onCreateModal, place, setChecked }) {
             </button>
           </div>
           <div className="header_name">Terrence Tegegne</div>
-          <div className="header_avatar">
-            <img src={avatarImage} alt="avatar" />
-          </div>
+          <Link to="/profile">
+            <div className="header_avatar">
+              <img src={avatarImage} alt="avatar" />
+            </div>
+          </Link>
         </div>
       </header>
     </div>
