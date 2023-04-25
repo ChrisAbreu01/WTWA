@@ -2,11 +2,11 @@ import React from "react";
 import { ToggleSwitchContext } from "../ToggleSwitch/ToggleSwitchContext";
 import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
-import { defaultClothingItems } from "../../utils/constants";
+// import { defaultClothingItems } from "../../utils/constants";
 import "./Main.css";
 import "../ItemCard/ItemCard.css";
 import { unitFormat } from "../ToggleSwitch/ToggleSwitchContext";
-function Main({ weatherTemp, onSelectCard }) {
+function Main({ weatherTemp, onSelectCard, defaultClothingItems }) {
   const getWeatherType = () => {
     if (weatherTemp >= 86) {
       return "hot";
