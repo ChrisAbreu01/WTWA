@@ -38,6 +38,7 @@ function App() {
   const handleCreateModal = () => {
     setActiveModal("create");
   };
+
   const handleCloseModal = () => {
     setActiveModal("");
   };

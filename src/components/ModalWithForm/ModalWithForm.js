@@ -5,10 +5,9 @@ const ModalWithForm = ({
   title,
   onClose,
   handleSubmitForm,
-  name,
 }) => {
   return (
-    <div className={`modal modal_type_${name}`}>
+    <div className={`modal modal_type_add_item_modal`}>
       <div className="modal__content">
         <button
           className="modal_close"
