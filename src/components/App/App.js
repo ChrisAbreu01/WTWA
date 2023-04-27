@@ -5,10 +5,7 @@ import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import { useEffect, useState } from "react";
 import ItemModal from "../ItemModal/ItemModal";
-import {
-  CurrentTemperatureUnitContext,
-  currentTemperatureUnit,
-} from "../../contexts/CurrentTemperatureUnitContext";
+import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import { getForecastWeather, parseWeatherData } from "../../utils/weatherApi";
 import Profile from "../Profile/Profile";
 import { Switch } from "react-router-dom/cjs/react-router-dom.min";
@@ -20,7 +17,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [temp, setTemp] = useState(0);
   const [place, setPlace] = useState("");
-  const [checked, setChecked] = useState(false);
+  const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState(false);
   const itemsApi = new ItemsApi({ baseUrl });
   const defaultClothingItems = [];
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
@@ -36,7 +33,7 @@ function App() {
   }, []);
 
   const handleToggleSwitchChange = () => {
-    setChecked(!checked);
+    setCurrentTemperatureUnit(!currentTemperatureUnit);
   };
   const handleCreateModal = () => {
     setActiveModal("create");
@@ -69,6 +66,7 @@ function App() {
       .then((data) => {
         const temperature = parseWeatherData(data);
         setTemp(temperature);
+        console.log(data);
         setPlace(data.name);
       })
       .catch((err) => {
@@ -78,7 +76,7 @@ function App() {
   return (
     <div className="app">
       <CurrentTemperatureUnitContext.Provider
-        value={{ checked, handleToggleSwitchChange }}
+        value={{ currentTemperatureUnit, handleToggleSwitchChange }}
       >
         <Header onCreateModal={handleCreateModal} place={place} />
         <Switch>

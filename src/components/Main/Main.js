@@ -21,7 +21,7 @@ function Main({ weatherTemp, onSelectCard, defaultClothingItems }) {
   const currentValue = React.useContext(CurrentTemperatureUnitContext);
 
   let unit = "";
-  if (currentValue.checked === true) {
+  if (currentValue.currentTemperatureUnit === true) {
     unit = currentTemperatureUnit.celsius.unit;
     weatherTemp = Math.round(((weatherTemp - 32) * 5) / 9);
   } else {

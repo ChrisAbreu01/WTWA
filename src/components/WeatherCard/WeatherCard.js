@@ -12,7 +12,7 @@ const WeatherCard = ({ day, type, weatherTemp = "" }) => {
   });
   const currentValue = React.useContext(CurrentTemperatureUnitContext);
   let unit = "";
-  if (currentValue.checked === true) {
+  if (currentValue.currentTemperatureUnit === true) {
     unit = currentTemperatureUnit.celsius.unit;
   } else {
     unit = currentTemperatureUnit.fahrenheit.unit;

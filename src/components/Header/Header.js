@@ -12,7 +12,6 @@ function Header({ onCreateModal, place }) {
     day: "numeric",
   });
   const currentValue = React.useContext(CurrentTemperatureUnitContext);
-  console.log(currentValue.checked);
   return (
     <div>
       <header className="header">
@@ -28,7 +27,7 @@ function Header({ onCreateModal, place }) {
         </div>
         <div className="header__avatar-logo">
           <div className="header_toggle">
-            <ToggleSwitch value={currentValue.checked} />
+            <ToggleSwitch value={currentValue.currentTemperatureUnit} />
           </div>
           <div>
             <button
