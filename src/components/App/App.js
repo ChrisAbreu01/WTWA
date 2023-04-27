@@ -36,7 +36,7 @@ function App() {
       });
   }, []);
 
-  const handleChange = () => {
+  const handleToggleSwitchChange = () => {
     setChecked(!checked);
   };
   const handleCreateModal = () => {
@@ -79,14 +79,10 @@ function App() {
   return (
     <div className="app">
       <CurrentTemperatureUnitContext.Provider
-        value={{ currentTemperatureUnit, handleChange }}
+        value={{ currentTemperatureUnit, handleToggleSwitchChange }}
       >
         <ToggleSwitchContext.Provider value={checked}>
-          <Header
-            onCreateModal={handleCreateModal}
-            place={place}
-            setChecked={handleChange}
-          />
+          <Header onCreateModal={handleCreateModal} place={place} />
           <Switch>
             <Route exact path="/">
               <Main
