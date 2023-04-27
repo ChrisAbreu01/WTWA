@@ -1,7 +1,7 @@
 import React from "react";
 import "./WeatherCard.css";
 import { ToggleSwitchContext } from "../ToggleSwitch/ToggleSwitchContext";
-import { unitFormat } from "../ToggleSwitch/ToggleSwitchContext";
+import { currentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import { weatherOptions } from "../../utils/constants";
 
 const WeatherCard = ({ day, type, weatherTemp = "" }) => {
@@ -11,9 +11,9 @@ const WeatherCard = ({ day, type, weatherTemp = "" }) => {
   const currentValue = React.useContext(ToggleSwitchContext);
   let unit = "";
   if (currentValue === true) {
-    unit = unitFormat.celsius.unit;
+    unit = currentTemperatureUnitContext.celsius.unit;
   } else {
-    unit = unitFormat.fahrenheit.unit;
+    unit = currentTemperatureUnitContext.fahrenheit.unit;
   }
   const imageSrcUrl = imageSrc[0].url || "";
   return (

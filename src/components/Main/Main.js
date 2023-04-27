@@ -2,10 +2,9 @@ import React from "react";
 import { ToggleSwitchContext } from "../ToggleSwitch/ToggleSwitchContext";
 import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
-// import { defaultClothingItems } from "../../utils/constants";
 import "./Main.css";
 import "../ItemCard/ItemCard.css";
-import { unitFormat } from "../ToggleSwitch/ToggleSwitchContext";
+import { currentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 function Main({ weatherTemp, onSelectCard, defaultClothingItems }) {
   const getWeatherType = () => {
     if (weatherTemp >= 86) {
@@ -21,10 +20,10 @@ function Main({ weatherTemp, onSelectCard, defaultClothingItems }) {
 
   let unit = "";
   if (currentValue === true) {
-    unit = unitFormat.celsius.unit;
+    unit = currentTemperatureUnitContext.celsius.unit;
     weatherTemp = Math.round(((weatherTemp - 32) * 5) / 9);
   } else {
-    unit = unitFormat.fahrenheit.unit;
+    unit = currentTemperatureUnitContext.fahrenheit.unit;
   }
   const filteredCards = defaultClothingItems.filter((item) => {
     return item?.weather?.toLocaleLowerCase() === weatherType;
