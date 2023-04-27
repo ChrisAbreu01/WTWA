@@ -1,10 +1,12 @@
 import React from "react";
-import { ToggleSwitchContext } from "../ToggleSwitch/ToggleSwitchContext";
 import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
 import "./Main.css";
 import "../ItemCard/ItemCard.css";
-import { currentTemperatureUnit } from "../../contexts/CurrentTemperatureUnitContext";
+import {
+  CurrentTemperatureUnitContext,
+  currentTemperatureUnit,
+} from "../../contexts/CurrentTemperatureUnitContext";
 function Main({ weatherTemp, onSelectCard, defaultClothingItems }) {
   const getWeatherType = () => {
     if (weatherTemp >= 86) {
@@ -16,10 +18,10 @@ function Main({ weatherTemp, onSelectCard, defaultClothingItems }) {
     }
   };
   const weatherType = getWeatherType();
-  const currentValue = React.useContext(ToggleSwitchContext);
+  const currentValue = React.useContext(CurrentTemperatureUnitContext);
 
   let unit = "";
-  if (currentValue === true) {
+  if (currentValue.checked === true) {
     unit = currentTemperatureUnit.celsius.unit;
     weatherTemp = Math.round(((weatherTemp - 32) * 5) / 9);
   } else {

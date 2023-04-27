@@ -4,14 +4,15 @@ import { Link } from "react-router-dom";
 import logoImage from "../../images/logo.svg";
 import avatarImage from "../../images/avatar.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch.js";
-import { ToggleSwitchContext } from "../ToggleSwitch/ToggleSwitchContext";
+
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 function Header({ onCreateModal, place }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
-  const currentValue = React.useContext(ToggleSwitchContext);
+  const currentValue = React.useContext(CurrentTemperatureUnitContext);
+  console.log(currentValue.checked);
   return (
     <div>
       <header className="header">
@@ -27,7 +28,7 @@ function Header({ onCreateModal, place }) {
         </div>
         <div className="header__avatar-logo">
           <div className="header_toggle">
-            <ToggleSwitch value={currentValue} />
+            <ToggleSwitch value={currentValue.checked} />
           </div>
           <div>
             <button

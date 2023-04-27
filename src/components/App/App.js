@@ -10,7 +10,6 @@ import {
   currentTemperatureUnit,
 } from "../../contexts/CurrentTemperatureUnitContext";
 import { getForecastWeather, parseWeatherData } from "../../utils/weatherApi";
-import { ToggleSwitchContext } from "../ToggleSwitch/ToggleSwitchContext";
 import Profile from "../Profile/Profile";
 import { Switch } from "react-router-dom/cjs/react-router-dom.min";
 import AddItemModal from "../AddItemModal/AddItemModal";
@@ -79,27 +78,25 @@ function App() {
   return (
     <div className="app">
       <CurrentTemperatureUnitContext.Provider
-        value={{ currentTemperatureUnit, handleToggleSwitchChange }}
+        value={{ checked, handleToggleSwitchChange }}
       >
-        <ToggleSwitchContext.Provider value={checked}>
-          <Header onCreateModal={handleCreateModal} place={place} />
-          <Switch>
-            <Route exact path="/">
-              <Main
-                weatherTemp={temp}
-                onSelectCard={handleSelectedCard}
-                defaultClothingItems={clothingItems}
-              />
-            </Route>
-            <Route exact path="/profile">
-              <Profile
-                onSelectCard={handleSelectedCard}
-                onCreateModal={handleCreateModal}
-                defaultClothingItems={clothingItems}
-              />
-            </Route>
-          </Switch>
-        </ToggleSwitchContext.Provider>
+        <Header onCreateModal={handleCreateModal} place={place} />
+        <Switch>
+          <Route exact path="/">
+            <Main
+              weatherTemp={temp}
+              onSelectCard={handleSelectedCard}
+              defaultClothingItems={clothingItems}
+            />
+          </Route>
+          <Route exact path="/profile">
+            <Profile
+              onSelectCard={handleSelectedCard}
+              onCreateModal={handleCreateModal}
+              defaultClothingItems={clothingItems}
+            />
+          </Route>
+        </Switch>
       </CurrentTemperatureUnitContext.Provider>
 
       {activeModal === "create" && (
