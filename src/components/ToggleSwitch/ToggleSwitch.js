@@ -1,12 +1,14 @@
 import * as React from "react";
 import "./ToggleSwitch.css";
+import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 
-const ToggleSwitch = ({ value, handleToggle }) => {
+const ToggleSwitch = ({ value }) => {
+  const handleToggle = React.useContext(CurrentTemperatureUnitContext);
   return (
     <>
       <input
         checked={value}
-        onChange={handleToggle}
+        onChange={handleToggle.handleChange}
         className="react-switch-checkbox"
         id={`react-switch-new`}
         type="checkbox"

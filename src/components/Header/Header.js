@@ -5,7 +5,8 @@ import logoImage from "../../images/logo.svg";
 import avatarImage from "../../images/avatar.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch.js";
 import { ToggleSwitchContext } from "../ToggleSwitch/ToggleSwitchContext";
-function Header({ onCreateModal, place, setChecked }) {
+import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
+function Header({ onCreateModal, place }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -26,7 +27,7 @@ function Header({ onCreateModal, place, setChecked }) {
         </div>
         <div className="header__avatar-logo">
           <div className="header_toggle">
-            <ToggleSwitch value={currentValue} handleToggle={setChecked} />
+            <ToggleSwitch value={currentValue} />
           </div>
           <div>
             <button

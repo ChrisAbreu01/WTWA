@@ -5,7 +5,10 @@ import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import { useEffect, useState } from "react";
 import ItemModal from "../ItemModal/ItemModal";
-import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
+import {
+  CurrentTemperatureUnitContext,
+  currentTemperatureUnit,
+} from "../../contexts/CurrentTemperatureUnitContext";
 import { getForecastWeather, parseWeatherData } from "../../utils/weatherApi";
 import { ToggleSwitchContext } from "../ToggleSwitch/ToggleSwitchContext";
 import Profile from "../Profile/Profile";
@@ -75,7 +78,9 @@ function App() {
   }, []);
   return (
     <div className="app">
-      <CurrentTemperatureUnitContext.Provider value={temp}>
+      <CurrentTemperatureUnitContext.Provider
+        value={{ currentTemperatureUnit, handleChange }}
+      >
         <ToggleSwitchContext.Provider value={checked}>
           <Header
             onCreateModal={handleCreateModal}
