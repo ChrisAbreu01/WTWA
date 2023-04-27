@@ -10,14 +10,28 @@ import { ToggleSwitchContext } from "../ToggleSwitch/ToggleSwitchContext";
 import Profile from "../Profile/Profile";
 import { Switch } from "react-router-dom/cjs/react-router-dom.min";
 import AddItemModal from "../AddItemModal/AddItemModal";
-import { defaultClothingItems } from "../../utils/constants";
+import { baseUrl } from "../../utils/constants";
+import { ItemsApi } from "../../utils/itemsApi";
 function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [temp, setTemp] = useState(0);
   const [place, setPlace] = useState("");
   const [checked, setChecked] = useState(false);
+  const itemsApi = new ItemsApi({ baseUrl });
+  const defaultClothingItems = [];
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+  useEffect(() => {
+    itemsApi
+      .getItems()
+      .then((res) => {
+        setClothingItems(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   const handleChange = () => {
     setChecked(!checked);
   };
@@ -33,7 +47,18 @@ function App() {
   };
   const handleAddItemSubmit = (item) => {
     setClothingItems([item, ...clothingItems]);
+    itemsApi.addItem(item);
     handleCloseModal();
+  };
+  const handleDeleteItem = (item) => {
+    itemsApi.deleteItem(item).then(() => {
+      const updatedClothingItems = clothingItems.filter((element) => {
+        return element.id !== item.id;
+      });
+      console.log(updatedClothingItems);
+      handleCloseModal();
+      setClothingItems(updatedClothingItems);
+    });
   };
   useEffect(() => {
     getForecastWeather()
@@ -80,7 +105,11 @@ function App() {
         />
       )}
       {activeModal === "preview" && (
-        <ItemModal selectedCard={selectedCard} onClose={handleCloseModal} />
+        <ItemModal
+          selectedCard={selectedCard}
+          onClose={handleCloseModal}
+          onDelete={handleDeleteItem}
+        />
       )}
       <Footer />
     </div>

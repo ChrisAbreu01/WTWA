@@ -18,6 +18,7 @@ function Main({ weatherTemp, onSelectCard, defaultClothingItems }) {
   };
   const weatherType = getWeatherType();
   const currentValue = React.useContext(ToggleSwitchContext);
+
   let unit = "";
   if (currentValue === true) {
     unit = unitFormat.celsius.unit;
@@ -26,7 +27,7 @@ function Main({ weatherTemp, onSelectCard, defaultClothingItems }) {
     unit = unitFormat.fahrenheit.unit;
   }
   const filteredCards = defaultClothingItems.filter((item) => {
-    return item.weather.toLocaleLowerCase() === weatherType;
+    return item?.weather?.toLocaleLowerCase() === weatherType;
   });
 
   return (
@@ -41,7 +42,7 @@ function Main({ weatherTemp, onSelectCard, defaultClothingItems }) {
             <ItemCard
               card={element}
               onSelectCard={onSelectCard}
-              key={element._id.toString()}
+              key={element.id}
             />
           ))}
         </div>

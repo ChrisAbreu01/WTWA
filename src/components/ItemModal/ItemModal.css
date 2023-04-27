@@ -1,4 +1,5 @@
 .modal_item-content{
+    background-color: white;
     max-height: 610px;
     max-width: 498px;
     border-radius: 16px;
@@ -12,17 +13,45 @@
     flex-direction: column;
 }
 .modal_item-close{
-    background-color: transparent;
+        background: url(../../images/closebutton.svg) no-repeat;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 100%;
+            max-width: 14px;
+            max-height: 14px;
+            position: absolute;
+            border: none;
+            background-position: center;
+            right: 31px;
+            top: 23px;
+            cursor: pointer;
 }
 .modal_item-image{
     border-top-right-radius: 16px;
     border-top-left-radius: 16px;
     max-width: 498px;
+    min-height: 498px;
+    max-height: 498px;
 }
 .modal_item-name{
     margin: 20px 0 12px 32px;
 }
 .modal_item-type{
     margin: 0 0 32px 32px;
+}
+.modal_item-deletebutton{
+    border: none;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FF4D00;
+    width: 101px;
+    height: 24px;
+    margin: 20px 32px 0 0;
+    background-color: transparent;
+}
+.modal_item-infospace{
+    display: flex;
+    justify-content: space-between;
 }
 

@@ -29,7 +29,7 @@ const ClothesSection = ({
           <ItemCard
             card={element}
             onSelectCard={onSelectCard}
-            key={element._id.toString()}
+            key={element?.id?.toString()}
           />
         ))}
       </div>
