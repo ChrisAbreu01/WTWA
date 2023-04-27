@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./AddItemModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 // onAddItem refers to handleAddItemSubmit, which is declared in App.js
 const AddItemModal = ({ onAddItem, handleCloseModal }) => {

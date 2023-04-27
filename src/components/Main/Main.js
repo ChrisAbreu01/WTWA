@@ -4,7 +4,7 @@ import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
 import "./Main.css";
 import "../ItemCard/ItemCard.css";
-import { currentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
+import { currentTemperatureUnit } from "../../contexts/CurrentTemperatureUnitContext";
 function Main({ weatherTemp, onSelectCard, defaultClothingItems }) {
   const getWeatherType = () => {
     if (weatherTemp >= 86) {
@@ -20,10 +20,10 @@ function Main({ weatherTemp, onSelectCard, defaultClothingItems }) {
 
   let unit = "";
   if (currentValue === true) {
-    unit = currentTemperatureUnitContext.celsius.unit;
+    unit = currentTemperatureUnit.celsius.unit;
     weatherTemp = Math.round(((weatherTemp - 32) * 5) / 9);
   } else {
-    unit = currentTemperatureUnitContext.fahrenheit.unit;
+    unit = currentTemperatureUnit.fahrenheit.unit;
   }
   const filteredCards = defaultClothingItems.filter((item) => {
     return item?.weather?.toLocaleLowerCase() === weatherType;

@@ -5,6 +5,7 @@ import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import { useEffect, useState } from "react";
 import ItemModal from "../ItemModal/ItemModal";
+import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import { getForecastWeather, parseWeatherData } from "../../utils/weatherApi";
 import { ToggleSwitchContext } from "../ToggleSwitch/ToggleSwitchContext";
 import Profile from "../Profile/Profile";
@@ -74,29 +75,31 @@ function App() {
   }, []);
   return (
     <div className="app">
-      <ToggleSwitchContext.Provider value={checked}>
-        <Header
-          onCreateModal={handleCreateModal}
-          place={place}
-          setChecked={handleChange}
-        />
-        <Switch>
-          <Route exact path="/">
-            <Main
-              weatherTemp={temp}
-              onSelectCard={handleSelectedCard}
-              defaultClothingItems={clothingItems}
-            />
-          </Route>
-          <Route exact path="/profile">
-            <Profile
-              onSelectCard={handleSelectedCard}
-              onCreateModal={handleCreateModal}
-              defaultClothingItems={clothingItems}
-            />
-          </Route>
-        </Switch>
-      </ToggleSwitchContext.Provider>
+      <CurrentTemperatureUnitContext.Provider value={temp}>
+        <ToggleSwitchContext.Provider value={checked}>
+          <Header
+            onCreateModal={handleCreateModal}
+            place={place}
+            setChecked={handleChange}
+          />
+          <Switch>
+            <Route exact path="/">
+              <Main
+                weatherTemp={temp}
+                onSelectCard={handleSelectedCard}
+                defaultClothingItems={clothingItems}
+              />
+            </Route>
+            <Route exact path="/profile">
+              <Profile
+                onSelectCard={handleSelectedCard}
+                onCreateModal={handleCreateModal}
+                defaultClothingItems={clothingItems}
+              />
+            </Route>
+          </Switch>
+        </ToggleSwitchContext.Provider>
+      </CurrentTemperatureUnitContext.Provider>
 
       {activeModal === "create" && (
         <AddItemModal
