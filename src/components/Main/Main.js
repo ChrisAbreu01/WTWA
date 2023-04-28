@@ -3,6 +3,7 @@ import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
 import "./Main.css";
 import "../ItemCard/ItemCard.css";
+import { CurrentWeatherContext } from "../../contexts/CurrentWeatherContext";
 import {
   CurrentTemperatureUnitContext,
   currentTemperatureUnit,
@@ -19,6 +20,7 @@ function Main({ weatherTemp, onSelectCard, defaultClothingItems }) {
   };
   const weatherType = getWeatherType();
   const currentValue = React.useContext(CurrentTemperatureUnitContext);
+  // const weatherData = React.useContext(CurrentWeatherContext);
 
   let unit = "";
   if (currentValue.currentTemperatureUnit === true) {
@@ -33,7 +35,7 @@ function Main({ weatherTemp, onSelectCard, defaultClothingItems }) {
 
   return (
     <main className="main">
-      <WeatherCard day={false} type="cloudy" weatherTemp={weatherTemp} />
+      <WeatherCard weatherTemp={weatherTemp} />
       <section className="card_section" id="card-section">
         <div className="main_title">
           Today is {weatherTemp} {unit}/ You may want to wear:

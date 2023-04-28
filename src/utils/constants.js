@@ -37,41 +37,45 @@ export const defaultClothingItems = [
   },
 ];
 export const weatherOptions = [
-  { url: require("../images/day/sunny.svg").default, day: true, type: "sunny" },
-  { url: require("../images/day/storm.svg").default, day: true, type: "storm" },
-  { url: require("../images/day/snow.svg").default, day: true, type: "snow" },
-  { url: require("../images/day/rain.svg").default, day: true, type: "rain" },
-  { url: require("../images/day/fog.svg").default, day: true, type: "fog" },
+  { url: require("../images/day/sunny.svg").default, day: true, type: "Clear" },
+  {
+    url: require("../images/day/storm.svg").default,
+    day: true,
+    type: "Thunderstorm",
+  },
+  { url: require("../images/day/snow.svg").default, day: true, type: "Snow" },
+  { url: require("../images/day/rain.svg").default, day: true, type: "Rain" },
+  { url: require("../images/day/fog.svg").default, day: true, type: "Fog" },
   {
     url: require("../images/day/cloudy.svg").default,
     day: true,
-    type: "cloudy",
+    type: "Clouds",
   },
   {
     url: require("../images/night/moon.svg").default,
     day: false,
-    type: "moon",
+    type: "Clear",
   },
   {
     url: require("../images/night/cloudy.svg").default,
     day: false,
-    type: "cloudy",
+    type: "Clouds",
   },
   { url: require("../images/night/fog.svg").default, day: false, type: "fog" },
   {
     url: require("../images/night/rain.svg").default,
     day: false,
-    type: "rain",
+    type: "Rain",
   },
   {
     url: require("../images/night/snow.svg").default,
     day: false,
-    type: "snow",
+    type: "Snow",
   },
   {
     url: require("../images/night/storm.svg").default,
     day: false,
-    type: "storm",
+    type: "Thunderstorm",
   },
 ];
 export const APIkey = "e46bec6f352ff5e083dc942432494a41";
