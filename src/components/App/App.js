@@ -13,6 +13,7 @@ import AddItemModal from "../AddItemModal/AddItemModal";
 import { baseUrl } from "../../utils/constants";
 import { ItemsApi } from "../../utils/itemsApi";
 import { CurrentWeatherContext } from "../../contexts/CurrentWeatherContext";
+const itemsApi = new ItemsApi({ baseUrl });
 function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
@@ -21,7 +22,7 @@ function App() {
   const [isDay, setIsDay] = useState(false);
   const [weather, setWeather] = useState("Clear");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState(false);
-  const itemsApi = new ItemsApi({ baseUrl });
+
   const defaultClothingItems = [];
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
   useEffect(() => {
@@ -33,6 +34,17 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
+  }, []);
+  useEffect(() => {
+    const closeByEscape = (e) => {
+      if (e.key === "Escape") {
+        handleCloseModal();
+      }
+    };
+
+    document.addEventListener("keydown", closeByEscape);
+
+    return () => document.removeEventListener("keydown", closeByEscape);
   }, []);
 
   const handleToggleSwitchChange = () => {
@@ -50,19 +62,29 @@ function App() {
     setSelectedCard(card);
   };
   const handleAddItemSubmit = (item) => {
-    setClothingItems([item, ...clothingItems]);
-    itemsApi.addItem(item);
-    handleCloseModal();
+    itemsApi
+      .addItem(item)
+      .then((newCard) => {
+        setClothingItems([newCard, ...clothingItems]);
+        handleCloseModal();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   const handleDeleteItem = (item) => {
-    itemsApi.deleteItem(item).then(() => {
-      const updatedClothingItems = clothingItems.filter((element) => {
-        return element.id !== item.id;
+    itemsApi
+      .deleteItem(item)
+      .then(() => {
+        const updatedClothingItems = clothingItems.filter((element) => {
+          return element.id !== item.id;
+        });
+        handleCloseModal();
+        setClothingItems(updatedClothingItems);
+      })
+      .catch((err) => {
+        console.log(err);
       });
-      console.log(updatedClothingItems);
-      handleCloseModal();
-      setClothingItems(updatedClothingItems);
-    });
   };
   let timeTosunset = 0;
   let timeTosunrise = 0;
@@ -71,10 +93,8 @@ function App() {
       .then((data) => {
         const temperature = parseWeatherData(data);
         setTemp(temperature);
-        console.log(data);
         timeTosunset = data.sys.sunset;
         timeTosunrise = data.sys.sunrise;
-        console.log(data.weather[0].main);
         setWeather(data.weather[0].main);
         setPlace(data.name);
         isDaytime();
