@@ -11,7 +11,7 @@ const ItemModal = ({ selectedCard, onClose, onDelete }) => {
         <img
           className="modal_item-image"
           src={selectedCard.link}
-          alt="image of clothes"
+          alt={selectedCard.name}
         />
         <div className="modal_item-infospace">
           <div>
