@@ -27,6 +27,15 @@ export function signIn(email, password) {
     body: JSON.stringify({ email, password }),
   }).then(processServerResponse);
 }
+export function checkToken(token) {
+    return fetch(`${BASE_URL}/users/me`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`,
+      },
+    }).then(processServerResponse);
+  }
 
-    const auth = { signIn, signUp}
+    const auth = { signIn, signUp, checkToken}
     export default auth;

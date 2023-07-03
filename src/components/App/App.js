@@ -3,7 +3,7 @@ import Header from "../Header/Header";
 import { Route } from "react-router-dom";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import ItemModal from "../ItemModal/ItemModal";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import { getForecastWeather, parseWeatherData } from "../../utils/weatherApi";
@@ -13,6 +13,7 @@ import AddItemModal from "../AddItemModal/AddItemModal";
 import { baseUrl } from "../../utils/constants";
 import { ItemsApi } from "../../utils/itemsApi";
 import { CurrentWeatherContext } from "../../contexts/CurrentWeatherContext";
+import { checkToken, signIn, signUp } from "../../utils/auth";
 const itemsApi = new ItemsApi({ baseUrl });
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -22,7 +23,11 @@ function App() {
   const [isDay, setIsDay] = useState(false);
   const [weather, setWeather] = useState("Clear");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState(false);
-
+  const [User, setUser] = useState(null);
+  const [authError, setAuthError] = useState("");
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [registerModalOpen, setRegisterModalOpen] = useState(false);
+  const [token, setToken] = useState(null);
   const defaultClothingItems = [];
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
   useEffect(() => {
@@ -72,6 +77,54 @@ function App() {
         console.log(err);
       });
   };
+  const handleSigningOut = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+  };
+  const isReloading = (token) => {
+    checkToken(token)
+      .then((res) => {
+        setUser(res.data);
+        setLoginModalOpen(false);
+        setRegisterModalOpen(false);
+        setAuthError("");
+        setToken(token);
+      })
+      .catch((error) => {
+        console.error("Error token invalid:", error);
+        setAuthError("Error  token invalid");
+      });
+  };
+
+  useEffect(() => {
+    const currentToken = localStorage.getItem("token");
+    if (currentToken) {
+      isReloading(currentToken);
+    }
+  }, []);
+  const handleLoginIn = ({ email, password }) => {
+    signIn(email, password)
+      .then((res) => {
+        if (res && res.token) {
+          localStorage.setItem("token", res.token);
+        } else {
+          setAuthError(res.message || "Invalid credentials");
+        }
+      })
+      .catch(() => {
+        setAuthError("Incorrect password");
+      });
+  };
+  const handleRegistration = ({ name, avatar, email, password }) => {
+    signUp(name, avatar, email, password)
+      .then((res) => {
+        handleLoginIn({ email, password });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const handleDeleteItem = (item) => {
     itemsApi
       .deleteItem(item)
@@ -124,6 +177,14 @@ function App() {
         >
           <Header onCreateModal={handleCreateModal} place={place} />
           <Switch>
+            <ProtectedRoute
+              path="/profile"
+              isAuthenticated={!!currentUser}
+              component={Profile}
+              onSelectCard={handleSelectedCard}
+              onCreateModal={handleCreateModal}
+              defaultClothingItems={clothingItems}
+            />
             <Route exact path="/">
               <Main
                 weatherTemp={temp}
@@ -131,13 +192,13 @@ function App() {
                 defaultClothingItems={clothingItems}
               />
             </Route>
-            <Route exact path="/profile">
+            {/* <Route exact path="/profile">
               <Profile
                 onSelectCard={handleSelectedCard}
                 onCreateModal={handleCreateModal}
                 defaultClothingItems={clothingItems}
               />
-            </Route>
+            </Route> */}
           </Switch>
         </CurrentTemperatureUnitContext.Provider>
       </CurrentWeatherContext.Provider>
