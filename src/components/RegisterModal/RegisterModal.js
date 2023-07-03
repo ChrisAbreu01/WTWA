@@ -1,0 +1,72 @@
+import React, { useState, useEffect } from 'react';
+import ModalWithForm from '../ModalWithForm/ModalWithForm';
+
+function RegisterModal({ isOpen, onClose, onRegister, toLogin }) {
+  const [name, setName] = useState('');
+  const [avatar, setAvatar] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [validForm, setValidForm] = useState(false);
+
+  useEffect(() => {
+    /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/gim.test(email);
+
+    setValidForm((email, password, name)=>{ return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/gim.test(email) && password.length >= 4 && name.length > 0;});
+  }, [email, password, name]);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onRegister({ name, avatar, email, password });
+  }
+
+  return (
+    <ModalWithForm
+      isOpen={isOpen}
+      onClose={onClose}
+      onSubmit={handleSubmit}
+      title='Sign Up'
+      buttonText='Next'
+      isValid={validForm}>
+      <label className='register__label'>Email</label>
+      <input
+        className='register__input'
+        type='email'
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder='Email'
+        required
+      />
+      <label className='register__label'>Password</label>
+      <input
+        className='register__input'
+        type='password'
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder='Password'
+        required
+      />
+      <label className='register__label'>Name</label>
+      <input
+        className='register__input'
+        type='text'
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder='Name'
+        required
+      />
+      <label className='register__label'>Avatar URL</label>
+      <input
+        className='register__input'
+        type='url'
+        value={avatar}
+        onChange={(e) => setAvatar(e.target.value)}
+        placeholder='Avatar URL'
+      />
+      <p className='register_or__log-in' onClick={toLogin}>
+        or Log in
+      </p>
+    </ModalWithForm>
+  );
+}
+
+export default RegisterModal;

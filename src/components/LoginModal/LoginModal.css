@@ -1,0 +1,39 @@
+.login__label {
+  width: 440px;
+  border: none;
+  font-family: "Cabinet Grotesk";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  border-bottom: 20px;
+  padding-bottom: 9px;
+  padding-top: 20px;
+}
+
+.login__input {
+  width: 440px;
+  left: 500px;
+  top: 535px;
+  border: none;
+  border-bottom: 1px solid #000000;
+  font-family: "Cabinet Grotesk";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  padding-bottom: 2px;
+  padding-top: 18px;
+}
+.login_or__register {
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  font-family: "Cabinet Grotesk";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  position: relative;
+  left: 82px;
+  top: 42px;
+}
