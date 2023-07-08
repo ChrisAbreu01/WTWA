@@ -54,3 +54,14 @@
     max-height: 40px;
     width: 100%;
   }
+  .header_signout{
+    font-family: 'Cabinet Grotesk';
+    font-weight: 700;
+    font-size: 20px;
+    cursor: pointer;
+    border: none;
+    background-color: white;
+  }
+  .header_nav{
+    cursor: pointer;
+  }

@@ -1,17 +1,28 @@
-import React from "react";
+import {React, useState, useContext} from "react";
 import "./Header.css";
-import { Link } from "react-router-dom";
+import { Link,useHistory, useLocation  } from "react-router-dom";
 import logoImage from "../../images/logo.svg";
 import avatarImage from "../../images/avatar.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch.js";
-
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
-function Header({ onCreateModal, place }) {
+
+function Header({ onCreateModal, place, onLogin, onRegister, setUser }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
   const currentValue = React.useContext(CurrentTemperatureUnitContext);
+  const user = useContext(CurrentUserContext);
+  const history = useHistory();
+  const location = useLocation();
+  const isMain = location.pathname === '/';
+  const isProfile= location.pathname === '/profile';
+  const handleSignOut = () => {
+    localStorage.removeItem('token');
+    setUser(null);
+    history.push('/');
+  };
   return (
     <div>
       <header className="header">
@@ -29,6 +40,8 @@ function Header({ onCreateModal, place }) {
           <div className="header_toggle">
             <ToggleSwitch value={currentValue.currentTemperatureUnit} />
           </div>
+          {user? (   
+          <>
           <div>
             <button
               className="header__button"
@@ -38,12 +51,26 @@ function Header({ onCreateModal, place }) {
               + Add New Clothes
             </button>
           </div>
-          <div className="header_name">Terrence Tegegne</div>
+          <div className="header_name">{user.name}</div>
           <Link to="/profile">
             <div className="header_avatar">
-              <img src={avatarImage} alt="avatar" />
+              <img src={user.avatar} alt="avatar" />
             </div>
           </Link>
+          {!isMain && !isProfile && (
+                <button onClick={handleSignOut} className='header_signout'>
+                  Sign out
+                </button>
+              )}
+          </>):(  <>
+              <span className='header_nav' onClick={onLogin}>
+                Log in
+              </span>
+              <span className='header_nav' onClick={onRegister}>
+                Sign up
+              </span>
+            </>)}
+       
         </div>
       </header>
     </div>

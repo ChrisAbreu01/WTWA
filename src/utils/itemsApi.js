@@ -11,12 +11,23 @@ export class ItemsApi {
     return Promise.reject(`Error: ${res.status}`);
   };
 
-  getItems = () => {
-    return fetch(`${this._baseUrl}/items`).then(this.processServerResponse);
+  getItems = (token) => {
+    return fetch(`${this._baseUrl}/items`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(this.processServerResponse);
   };
   addItem(item) {
+    const token = localStorage.getItem("token");
     return fetch(`${this._baseUrl}/items`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({
         name: item.name,
         weather: item.weather,
@@ -24,9 +35,13 @@ export class ItemsApi {
       }),
     }).then(this.processServerResponse);
   }
-  deleteItem(item) {
+  deleteItem(item, token) {
     return fetch(`${this._baseUrl}/items/${item.id}`, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     }).then(this.processServerResponse);
   }
 }

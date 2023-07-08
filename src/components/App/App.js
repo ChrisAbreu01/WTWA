@@ -14,6 +14,7 @@ import { baseUrl } from "../../utils/constants";
 import { ItemsApi } from "../../utils/itemsApi";
 import { CurrentWeatherContext } from "../../contexts/CurrentWeatherContext";
 import { checkToken, signIn, signUp } from "../../utils/auth";
+import CurrentUserContext from "../../context/currentUserContext";
 const itemsApi = new ItemsApi({ baseUrl });
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -21,15 +22,17 @@ function App() {
   const [temp, setTemp] = useState(0);
   const [place, setPlace] = useState("");
   const [isDay, setIsDay] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [weather, setWeather] = useState("Clear");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState(false);
-  const [User, setUser] = useState(null);
+  const [user, setUser] = useState(null);
   const [authError, setAuthError] = useState("");
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [registerModalOpen, setRegisterModalOpen] = useState(false);
   const [token, setToken] = useState(null);
   const defaultClothingItems = [];
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+
   useEffect(() => {
     itemsApi
       .getItems()
@@ -171,53 +174,61 @@ function App() {
 
   return (
     <div className="app">
-      <CurrentWeatherContext.Provider value={{ isDay, weather }}>
-        <CurrentTemperatureUnitContext.Provider
-          value={{ currentTemperatureUnit, handleToggleSwitchChange }}
-        >
-          <Header onCreateModal={handleCreateModal} place={place} />
-          <Switch>
-            <ProtectedRoute
-              path="/profile"
-              isAuthenticated={!!currentUser}
-              component={Profile}
-              onSelectCard={handleSelectedCard}
+      <CurrentUserContext.Provider value={user}>
+        <CurrentWeatherContext.Provider value={{ isDay, weather }}>
+          <CurrentTemperatureUnitContext.Provider
+            value={{ currentTemperatureUnit, handleToggleSwitchChange }}
+          >
+            <Header
               onCreateModal={handleCreateModal}
-              defaultClothingItems={clothingItems}
+              place={place}
+              onLogin={() => setLoginModalOpen(true)}
+              onRegister={() => setRegisterModalOpen(true)}
+              setUser={setUser}
             />
-            <Route exact path="/">
-              <Main
-                weatherTemp={temp}
+            <Switch>
+              <ProtectedRoute
+                path="/profile"
+                isAuthenticated={!!currentUser}
+                component={Profile}
                 onSelectCard={handleSelectedCard}
+                onCreateModal={handleCreateModal}
                 defaultClothingItems={clothingItems}
               />
-            </Route>
-            {/* <Route exact path="/profile">
+              <Route exact path="/">
+                <Main
+                  weatherTemp={temp}
+                  onSelectCard={handleSelectedCard}
+                  defaultClothingItems={clothingItems}
+                />
+              </Route>
+              {/* <Route exact path="/profile">
               <Profile
                 onSelectCard={handleSelectedCard}
                 onCreateModal={handleCreateModal}
                 defaultClothingItems={clothingItems}
               />
             </Route> */}
-          </Switch>
-        </CurrentTemperatureUnitContext.Provider>
-      </CurrentWeatherContext.Provider>
+            </Switch>
+          </CurrentTemperatureUnitContext.Provider>
+        </CurrentWeatherContext.Provider>
 
-      {activeModal === "create" && (
-        <AddItemModal
-          isOpen={activeModal}
-          onAddItem={handleAddItemSubmit}
-          handleCloseModal={handleCloseModal}
-        />
-      )}
-      {activeModal === "preview" && (
-        <ItemModal
-          selectedCard={selectedCard}
-          onClose={handleCloseModal}
-          onDelete={handleDeleteItem}
-        />
-      )}
-      <Footer />
+        {activeModal === "create" && (
+          <AddItemModal
+            isOpen={activeModal}
+            onAddItem={handleAddItemSubmit}
+            handleCloseModal={handleCloseModal}
+          />
+        )}
+        {activeModal === "preview" && (
+          <ItemModal
+            selectedCard={selectedCard}
+            onClose={handleCloseModal}
+            onDelete={handleDeleteItem}
+          />
+        )}
+        <Footer />
+      </CurrentUserContext.Provider>
     </div>
   );
 }

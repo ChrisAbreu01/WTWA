@@ -54,4 +54,10 @@
     display: flex;
     justify-content: space-between;
 }
+.modal_item-deletebutton_visible{
+    visibility: visible;
+}
+.modal_item-deletebutton_hidden{
+    visibility: hidden;
+}
 
