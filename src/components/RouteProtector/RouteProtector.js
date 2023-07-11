@@ -1,7 +1,7 @@
-import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import React from "react";
+import { Route, Redirect } from "react-router-dom";
 
-const RouteProtector = ({ component: Component, auth, ...rest }) => {
+export const RouteProtector = ({ component: Component, auth, ...rest }) => {
   return (
     <Route
       {...rest}
@@ -9,11 +9,9 @@ const RouteProtector = ({ component: Component, auth, ...rest }) => {
         auth ? (
           <Component {...props} {...rest} />
         ) : (
-          <Redirect to={{ pathname: '/', state: { from: props.location } }} />
+          <Redirect to={{ pathname: "/", state: { from: props.location } }} />
         )
       }
     />
   );
 };
-
-export default RouteProtector;

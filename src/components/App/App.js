@@ -12,6 +12,7 @@ import { Switch } from "react-router-dom/cjs/react-router-dom.min";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import { baseUrl } from "../../utils/constants";
 import { ItemsApi } from "../../utils/itemsApi";
+import { RouteProtector } from "../RouteProtector/RouteProtector";
 import { CurrentWeatherContext } from "../../contexts/CurrentWeatherContext";
 import { checkToken, signIn, signUp } from "../../utils/auth";
 import CurrentUserContext from "../../context/currentUserContext";
@@ -30,19 +31,24 @@ function App() {
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [registerModalOpen, setRegisterModalOpen] = useState(false);
   const [token, setToken] = useState(null);
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+
   const defaultClothingItems = [];
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
 
   useEffect(() => {
-    itemsApi
-      .getItems()
-      .then((res) => {
-        setClothingItems(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    if (token) {
+      itemsApi
+        .getItems()
+        .then((res) => {
+          setClothingItems(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [token]);
+
   useEffect(() => {
     const closeByEscape = (e) => {
       if (e.key === "Escape") {
@@ -105,6 +111,7 @@ function App() {
       isReloading(currentToken);
     }
   }, []);
+
   const handleLoginIn = ({ email, password }) => {
     signIn(email, password)
       .then((res) => {
@@ -187,9 +194,9 @@ function App() {
               setUser={setUser}
             />
             <Switch>
-              <ProtectedRoute
+              <RouteProtector
                 path="/profile"
-                isAuthenticated={!!currentUser}
+                isAuthenticated={!!user}
                 component={Profile}
                 onSelectCard={handleSelectedCard}
                 onCreateModal={handleCreateModal}
