@@ -9,6 +9,7 @@ const AddItemModal = ({ onAddItem, handleCloseModal }) => {
   const [nameInput, setNameInputValue] = useState("");
   const [imageInput, setImageInputValue] = useState("");
   const [weatherInput, setWeatherInputValue] = useState("");
+  const [validForm, setValidForm] = useState(true);
   const user = useContext(CurrentUserContext);
   // use a useEffect hook to reset the input field state to empty strings when
   // the modal is opened
@@ -32,20 +33,32 @@ const AddItemModal = ({ onAddItem, handleCloseModal }) => {
   const handleWeatherChange = (event) => {
     setWeatherInputValue(event.target.value);
   };
+  const isNameValid = (nameInput) => {
+    return nameInput.length >= 4;
+  };
+
+  const isUrlValid = (imageInput) => {
+    return imageInput.length >= 4;
+  };
 
   function handleSubmit(e) {
-    e.preventDefault();
     // call onAddItem with appropriate arguments
-    onAddItem({
-      name: nameInput,
-      weather: weatherInput,
-      link: imageInput,
-      likes: [],
-      owner: user._id,
-    });
-
-    // handleCloseModal();
+    if (isNameValid(nameInput) && isUrlValid(imageInput)) {
+      setValidForm(true);
+      e.preventDefault();
+      onAddItem({
+        name: nameInput,
+        weather: weatherInput,
+        link: imageInput,
+        likes: [],
+        owner: user._id,
+      });
+    }
+    setValidForm(false);
   }
+  const modalInputValidClassName = validForm
+    ? "modal_input-field"
+    : "modal_input-field-invalid modal_input-field";
   /* don't forget to pass appropriate props to ModalWithForm */
   return (
     <ModalWithForm
@@ -53,13 +66,14 @@ const AddItemModal = ({ onAddItem, handleCloseModal }) => {
       onClose={handleCloseModal}
       buttonText="Add garment"
       onSubmit={handleSubmit}
+      isValid={validForm}
     >
       <div className="modal_inputs">
         <div className="modal_input">
           <label>
             <div>Name</div>
             <input
-              className="modal_input-field"
+              className={modalInputValidClassName}
               value={nameInput}
               onChange={handleNameChange}
               placeholder="Name"
@@ -74,7 +88,7 @@ const AddItemModal = ({ onAddItem, handleCloseModal }) => {
           <label>
             <div>Image</div>
             <input
-              className="modal_input-field"
+              className={modalInputValidClassName}
               value={imageInput}
               onChange={handleImageChange}
               placeholder="Image URL"

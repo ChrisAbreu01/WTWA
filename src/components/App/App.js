@@ -3,7 +3,7 @@ import Header from "../Header/Header";
 import { Route } from "react-router-dom";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import ItemModal from "../ItemModal/ItemModal";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import { getForecastWeather, parseWeatherData } from "../../utils/weatherApi";
@@ -29,11 +29,9 @@ function App() {
   const [temp, setTemp] = useState(0);
   const [place, setPlace] = useState("");
   const [isDay, setIsDay] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [weather, setWeather] = useState("Clear");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState(false);
   const [user, setUser] = useState(null);
-  const [authError, setAuthError] = useState("");
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [registerModalOpen, setRegisterModalOpen] = useState(false);
   const [token, setToken] = useState(null);
@@ -85,8 +83,8 @@ function App() {
     userApi
       .updateUser(name, avatar, token)
       .then((res) => {
-        handleCloseModal();
-        setUser(res.data);
+        isReloading(token);
+        setIsEditProfileOpen(false);
       })
       .catch((err) => console.log(err));
   };
@@ -142,12 +140,10 @@ function App() {
         setUser(res.data);
         setLoginModalOpen(false);
         setRegisterModalOpen(false);
-        setAuthError("");
         setToken(token);
       })
       .catch((error) => {
         console.error("Error token invalid:", error);
-        setAuthError("Error  token invalid");
       });
   };
 
@@ -164,12 +160,10 @@ function App() {
         if (res && res.token) {
           localStorage.setItem("token", res.token);
           isReloading(res.token);
-        } else {
-          setAuthError(res.message || "Invalid credentials");
         }
       })
-      .catch(() => {
-        setAuthError("Incorrect password");
+      .catch((error) => {
+        console.error("Incorrect password", error);
       });
   };
   const handleRegistration = ({ name, avatar, email, password }) => {
@@ -204,6 +198,7 @@ function App() {
       .then((data) => {
         const temperature = parseWeatherData(data);
         setTemp(temperature);
+
         timeTosunset = data.sys.sunset;
         timeTosunrise = data.sys.sunrise;
         setWeather(data.weather[0].main);

@@ -61,11 +61,11 @@ function Header({ onCreateModal, place, onLogin, onRegister, setUser }) {
                   />
                 </div>
               </Link>
-              {/* {!isMain && !isProfile && (
+              {!isMain && !isProfile && (
                 <button onClick={handleSignOut} className="header_signout">
                   Sign out
                 </button>
-              )} */}
+              )}
             </>
           ) : (
             <>

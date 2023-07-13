@@ -1,46 +1,64 @@
 import React, { useState, useContext } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import "./EditProfileModal.css";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function EditProfileModal({ onClose, onUpdateUser }) {
   const user = useContext(CurrentUserContext);
   const [name, setName] = useState(user.name);
   const [avatar, setAvatar] = useState(user.avatar);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onUpdateUser(name, avatar);
+  const [validForm, setValidForm] = useState(true);
+  const isNameValid = (name) => {
+    return name.length >= 4;
   };
+
+  const isUrlValid = (avatar) => {
+    return avatar.length >= 4;
+  };
+  const handleSubmit = (e) => {
+    if (isNameValid(name) && isUrlValid(avatar)) {
+      setValidForm(true);
+      e.preventDefault();
+      onUpdateUser(name, avatar);
+    }
+    setValidForm(false);
+  };
+  const modalInputValidClassName = validForm
+    ? "edit_profile-modal-input"
+    : "edit_profile-modal-input-invalid edit_profile-modal-input";
 
   return (
     <ModalWithForm
       title="Change profile data"
       buttonText="Save changes"
-      handleSubmitForm={handleSubmit}
+      onSubmit={handleSubmit}
       onClose={onClose}
+      isValid={validForm}
     >
-      <label className="edit-profile-modal__input-label">
-        Name
-        <input
-          className="edit-profile-modal__input"
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-      </label>
-      <label className="edit-profile-modal__input-label">
-        URL
-        <input
-          className="edit-profile-modal__input"
-          type="url"
-          placeholder="URL"
-          value={avatar}
-          onChange={(e) => setAvatar(e.target.value)}
-          required
-        />
-      </label>
+      <div className="edit_profile-modal-content">
+        <div className="edit_profile-modal-namespace">
+          <label className="edit_profile-modal-label">Name</label>
+          <input
+            className={modalInputValidClassName}
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
+        <div className="edit_profile-modal-namespace">
+          <label className="edit_profile-modal-label">URL</label>
+          <input
+            className={modalInputValidClassName}
+            type="url"
+            placeholder="URL"
+            value={avatar}
+            onChange={(e) => setAvatar(e.target.value)}
+            required
+          />
+        </div>
+      </div>
     </ModalWithForm>
   );
 }

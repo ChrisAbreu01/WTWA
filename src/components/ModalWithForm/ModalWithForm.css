@@ -51,9 +51,6 @@
   top: 23px;
   cursor: pointer;
 }
-.modal_form {
-  /* height: 100%; */
-}
 .modal_title {
   margin: 0 0 24px 0;
 }
@@ -86,4 +83,7 @@
 }
 .modal__submit-invalid {
   background: rgba(0, 0, 0, 0.3);
+}
+.modal_input-field-invalid {
+  border-bottom: 1px solid red;
 }

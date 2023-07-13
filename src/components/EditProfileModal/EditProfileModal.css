@@ -1,0 +1,32 @@
+.edit_profile-modal-label {
+  color: #000;
+  font-family: Cabinet Grotesk;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+}
+.edit_profile-modal-input {
+  border: none;
+  border-bottom: 1px solid #000000;
+  color: #000;
+  font-family: Cabinet Grotesk;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+  max-width: 440px;
+  margin: 8px 0 24px 0;
+}
+.edit_profile-modal-namespace {
+  display: flex;
+  flex-direction: column;
+}
+.edit_profile-modal-content {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+.edit_profile-modal-input-invalid {
+  border-bottom: 1px solid red;
+}

@@ -9,7 +9,7 @@ const SideBar = (props) => {
         <img src={avatarImage} alt="avatar" className="sidebar_avatar-image" />
         <p className="sidebar_name-text">{props.user.name}</p>
       </div>
-      <button onClick={props.userOpenEditProfile} className="sidebar__button">
+      <button onClick={props.OpenEditProfile} className="sidebar__button">
         Change Profile Data
       </button>
       <button onClick={props.signOut} className="sidebar-logout">

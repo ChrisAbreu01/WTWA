@@ -1,29 +1,46 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./LoginModal.css";
 
 function LoginModal({ isOpen, onClose, onLogin, toRegister }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [validForm, setValidForm] = useState(false);
+  const [validForm, setValidForm] = useState(true);
 
-  useEffect(() => {
-    /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/gim.test(email);
+  // useEffect(() => {
+  //   /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/gim.test(email);
 
-    setValidForm((email, password) => {
-      return (
-        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/gim.test(email) &&
-        password.length >= 4
-      );
-    });
-  }, [email, password]);
+  //   setValidForm((email, password) => {
+  //     return (
+  //       /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/gim.test(email) &&
+  //       password.length >= 4
+  //     );
+  //   });
+  // }, [email, password]);
+
+  const isEmailValid = (email) => {
+    return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/gim.test(email);
+  };
+
+  const isPasswordValid = (password) => {
+    return password.length >= 4;
+  };
 
   function handleSubmit(e) {
-    e.preventDefault();
-    onLogin({ email, password });
-    onClose();
+    if (isEmailValid(email) && isPasswordValid(password)) {
+      setValidForm(true);
+      e.preventDefault();
+      onLogin({ email, password });
+      onClose();
+    }
+    setValidForm(false);
   }
-
+  function onEmailChange(e) {
+    setEmail(e.target.value);
+  }
+  const modalInputValidClassName = validForm
+    ? "login__input"
+    : "login__input-invalid login__input";
   return (
     <ModalWithForm
       isOpen={isOpen}
@@ -36,10 +53,10 @@ function LoginModal({ isOpen, onClose, onLogin, toRegister }) {
       <div className="login__modal-namespace">
         <label className="login__label">Email</label>
         <input
-          className="login__input"
+          className={modalInputValidClassName}
           type="text"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={onEmailChange}
           placeholder="Email"
           required
           minLength={1}
@@ -49,13 +66,13 @@ function LoginModal({ isOpen, onClose, onLogin, toRegister }) {
       <div className="login__modal-namespace">
         <label className="login__label">Password</label>
         <input
-          className="login__input"
+          className={modalInputValidClassName}
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
           required
-          minLength={8}
+          minLength={2}
           maxLength={40}
         />
       </div>
