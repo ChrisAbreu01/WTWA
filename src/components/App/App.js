@@ -15,8 +15,14 @@ import { ItemsApi } from "../../utils/itemsApi";
 import { RouteProtector } from "../RouteProtector/RouteProtector";
 import { CurrentWeatherContext } from "../../contexts/CurrentWeatherContext";
 import { checkToken, signIn, signUp } from "../../utils/auth";
-import CurrentUserContext from "../../context/currentUserContext";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import LoginModal from "../LoginModal/LoginModal";
+import RegisterModal from "../RegisterModal/RegisterModal";
+import EditProfileModal from "../EditProfileModal/EditProfileModal";
+import { UserApi } from "../../utils/userApi";
 const itemsApi = new ItemsApi({ baseUrl });
+const userApi = new UserApi({ baseUrl });
+
 function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
@@ -68,6 +74,22 @@ function App() {
     setActiveModal("create");
   };
 
+  const handleEditProfileClose = () => {
+    setIsEditProfileOpen(false);
+  };
+  const openEditProfile = () => {
+    setIsEditProfileOpen(true);
+  };
+  const handleEditProfile = (name, avatar) => {
+    const token = localStorage.getItem("token");
+    userApi
+      .updateUser(name, avatar, token)
+      .then((res) => {
+        handleCloseModal();
+        setUser(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
   const handleCloseModal = () => {
     setActiveModal("");
   };
@@ -75,6 +97,30 @@ function App() {
     setActiveModal("preview");
     setSelectedCard(card);
   };
+  const handleItemLike = (card) => {
+    const { _id: id, isLiked } = card;
+    const token = localStorage.getItem("token");
+    if (isLiked) {
+      itemsApi
+        .removeItemLike(id, token)
+        .then((card) => {
+          setClothingItems((cards) =>
+            cards.map((c) => (c._id === id ? card.data : c))
+          );
+        })
+        .catch((err) => console.log(err));
+    } else {
+      itemsApi
+        .addItemLike(id, token)
+        .then((card) => {
+          setClothingItems((cards) =>
+            cards.map((c) => (c._id === id ? card.data : c))
+          );
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
   const handleAddItemSubmit = (item) => {
     itemsApi
       .addItem(item)
@@ -117,6 +163,7 @@ function App() {
       .then((res) => {
         if (res && res.token) {
           localStorage.setItem("token", res.token);
+          isReloading(res.token);
         } else {
           setAuthError(res.message || "Invalid credentials");
         }
@@ -136,11 +183,12 @@ function App() {
   };
 
   const handleDeleteItem = (item) => {
+    const token = localStorage.getItem("token");
     itemsApi
-      .deleteItem(item)
+      .deleteItem(item._id, token)
       .then(() => {
         const updatedClothingItems = clothingItems.filter((element) => {
-          return element.id !== item.id;
+          return element._id !== item._id;
         });
         handleCloseModal();
         setClothingItems(updatedClothingItems);
@@ -196,17 +244,22 @@ function App() {
             <Switch>
               <RouteProtector
                 path="/profile"
-                isAuthenticated={!!user}
+                auth={!!user}
                 component={Profile}
                 onSelectCard={handleSelectedCard}
+                onItemLike={handleItemLike}
                 onCreateModal={handleCreateModal}
                 defaultClothingItems={clothingItems}
+                setUser={setUser}
+                openEditProfile={openEditProfile}
+                signOut={handleSigningOut}
               />
               <Route exact path="/">
                 <Main
                   weatherTemp={temp}
                   onSelectCard={handleSelectedCard}
                   defaultClothingItems={clothingItems}
+                  onItemLike={handleItemLike}
                 />
               </Route>
               {/* <Route exact path="/profile">
@@ -232,6 +285,35 @@ function App() {
             selectedCard={selectedCard}
             onClose={handleCloseModal}
             onDelete={handleDeleteItem}
+          />
+        )}
+        {loginModalOpen && (
+          <LoginModal
+            isOpen={loginModalOpen}
+            onClose={() => setLoginModalOpen(false)}
+            onLogin={handleLoginIn}
+            toRegister={() => {
+              setRegisterModalOpen(true);
+              setLoginModalOpen(false);
+            }}
+          />
+        )}
+        {registerModalOpen && (
+          <RegisterModal
+            isOpen={registerModalOpen}
+            onClose={() => setRegisterModalOpen(false)}
+            onRegister={handleRegistration}
+            toLogin={() => {
+              setLoginModalOpen(true);
+              setRegisterModalOpen(false);
+            }}
+          />
+        )}
+        {isEditProfileOpen && (
+          <EditProfileModal
+            isOpen={isEditProfileOpen}
+            onClose={handleEditProfileClose}
+            onUpdateUser={handleEditProfile}
           />
         )}
         <Footer />

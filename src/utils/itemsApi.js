@@ -1,5 +1,3 @@
-// import { baseUrl } from "./constants";
-
 export class ItemsApi {
   constructor({ baseUrl }) {
     this._baseUrl = baseUrl;
@@ -31,12 +29,31 @@ export class ItemsApi {
       body: JSON.stringify({
         name: item.name,
         weather: item.weather,
-        link: item.link,
+        imageUrl: item.link,
+        owner: item.owner,
       }),
     }).then(this.processServerResponse);
   }
   deleteItem(item, token) {
-    return fetch(`${this._baseUrl}/items/${item.id}`, {
+    return fetch(`${this._baseUrl}/items/${item}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(this.processServerResponse);
+  }
+  addItemLike(_id, token) {
+    return fetch(`${this._baseUrl}/items/${_id}/likes`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(this.processServerResponse);
+  }
+  removeItemLike(_id, token) {
+    return fetch(`${this._baseUrl}/items/${_id}/likes`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

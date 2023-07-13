@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import "./AddItemModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { useContext } from "react";
 // onAddItem refers to handleAddItemSubmit, which is declared in App.js
 const AddItemModal = ({ onAddItem, handleCloseModal }) => {
   // declare state for each input field
   const [nameInput, setNameInputValue] = useState("");
   const [imageInput, setImageInputValue] = useState("");
   const [weatherInput, setWeatherInputValue] = useState("");
-
+  const user = useContext(CurrentUserContext);
   // use a useEffect hook to reset the input field state to empty strings when
   // the modal is opened
 
@@ -38,7 +40,10 @@ const AddItemModal = ({ onAddItem, handleCloseModal }) => {
       name: nameInput,
       weather: weatherInput,
       link: imageInput,
+      likes: [],
+      owner: user._id,
     });
+
     // handleCloseModal();
   }
   /* don't forget to pass appropriate props to ModalWithForm */
@@ -47,7 +52,7 @@ const AddItemModal = ({ onAddItem, handleCloseModal }) => {
       title="New Garment"
       onClose={handleCloseModal}
       buttonText="Add garment"
-      handleSubmitForm={handleSubmit}
+      onSubmit={handleSubmit}
     >
       <div className="modal_inputs">
         <div className="modal_input">

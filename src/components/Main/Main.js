@@ -3,12 +3,11 @@ import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
 import "./Main.css";
 import "../ItemCard/ItemCard.css";
-import { CurrentWeatherContext } from "../../contexts/CurrentWeatherContext";
 import {
   CurrentTemperatureUnitContext,
   currentTemperatureUnit,
 } from "../../contexts/CurrentTemperatureUnitContext";
-function Main({ weatherTemp, onSelectCard, defaultClothingItems }) {
+function Main({ weatherTemp, onSelectCard, defaultClothingItems, onItemLike }) {
   const getWeatherType = () => {
     if (weatherTemp >= 86) {
       return "hot";
@@ -20,7 +19,6 @@ function Main({ weatherTemp, onSelectCard, defaultClothingItems }) {
   };
   const weatherType = getWeatherType();
   const currentValue = React.useContext(CurrentTemperatureUnitContext);
-  // const weatherData = React.useContext(CurrentWeatherContext);
 
   let unit = "";
   if (currentValue.currentTemperatureUnit === true) {
@@ -45,7 +43,8 @@ function Main({ weatherTemp, onSelectCard, defaultClothingItems }) {
             <ItemCard
               card={element}
               onSelectCard={onSelectCard}
-              key={element.id}
+              key={element._id}
+              onItemLike={onItemLike}
             />
           ))}
         </div>

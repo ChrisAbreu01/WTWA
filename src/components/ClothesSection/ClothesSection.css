@@ -1,27 +1,31 @@
 .clothessection-cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 16px;
 }
-.clothessection-youritems{
-    margin: 0;
+.clothessection-youritems {
+  margin: 0;
 }
-.clothessection-addnew{
-    margin: 0;
+.clothessection-addnew {
+  margin: 0;
 }
-.clothessection{
-width: 1015px;
+.clothessection {
+  width: 1015px;
 }
-.clothessection-buttons{
-    display: flex;
-    justify-content: flex-start;
-    gap: 20px;
-    margin-top: 17px;
+.clothessection-buttons {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  margin-top: 17px;
 }
-.clothessection-button{
-    margin: 0;
-    border: none;
-    background: white;
+.clothessection-button {
+  margin: 0;
+  border: none;
+  background: white;
+  font-weight: 700;
+  font-size: 20px;
 }
-
+.clothessection-add-button {
+  color: rgba(0, 0, 0, 0.6);
+}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import "LoginModal.css";
+import "./LoginModal.css";
 
 function LoginModal({ isOpen, onClose, onLogin, toRegister }) {
   const [email, setEmail] = useState("");
@@ -21,6 +21,7 @@ function LoginModal({ isOpen, onClose, onLogin, toRegister }) {
   function handleSubmit(e) {
     e.preventDefault();
     onLogin({ email, password });
+    onClose();
   }
 
   return (
@@ -32,29 +33,33 @@ function LoginModal({ isOpen, onClose, onLogin, toRegister }) {
       buttonText="Log In"
       isValid={validForm}
     >
-      <label className="login__label">Email</label>
-      <input
-        className="login__input"
-        type="text"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        required
-        minLength={1}
-        maxLength={30}
-      />
-      <label className="login__label">Password</label>
-      <input
-        className="login__input"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        required
-        minLength={8}
-        maxLength={40}
-      />
-      <p className="login_or__register" onClick={toRegister}>
+      <div className="login__modal-namespace">
+        <label className="login__label">Email</label>
+        <input
+          className="login__input"
+          type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          required
+          minLength={1}
+          maxLength={30}
+        />
+      </div>
+      <div className="login__modal-namespace">
+        <label className="login__label">Password</label>
+        <input
+          className="login__input"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          required
+          minLength={8}
+          maxLength={40}
+        />
+      </div>
+      <p className="login__register" onClick={toRegister}>
         or Register
       </p>
     </ModalWithForm>

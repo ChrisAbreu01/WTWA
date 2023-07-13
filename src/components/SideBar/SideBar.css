@@ -1,28 +1,58 @@
-.sidebar{
-    margin: 0 116px 0 40px;
-    display: flex;
-    width: 100%;
-    max-width: 229px;
-    height: 100%;
-    max-height: 56px;
+.sidebar {
+  margin: 0 116px 0 40px;
+  display: flex;
+  width: 100%;
+  max-width: 229px;
+  height: 100%;
+  max-height: 138px;
+  flex-direction: column;
 }
-.sidebar_avatar{
-    max-width: 56px;
-    max-height: 56px;
-    width: 100%;
-  }
-  .sidebar_name{
-    font-size: 20px;
-    line-height: 25px;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
-    margin-left: 16px;
-  }
-  .sidebar_name-text{
-    margin: 0;
-  }
-  .sidebar_avatar-image{
-    width: 56px;
-    height: 56px;
-  }
+.sidebar_avatar {
+  max-width: 229px;
+  max-height: 56px;
+  width: 100%;
+  display: flex;
+}
+.sidebar_name-text {
+  margin: 0 0 0 16px;
+  font-size: 20px;
+  line-height: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+}
+.sidebar_avatar-image {
+  width: 56px;
+  height: 56px;
+}
+.sidebar__button {
+  color: #000000;
+  cursor: pointer;
+  border: none;
+  font-family: "Cabinet Grotesk";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 0;
+  text-align: left;
+  margin-top: 24px;
+}
+
+.sidebar__button:hover {
+  color: #000000;
+}
+
+.sidebar-logout {
+  background: #ffffff;
+  border: none;
+  color: #000000;
+  font-family: "Cabinet Grotesk";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 25px;
+  text-align: left;
+  margin-top: 8px;
+}

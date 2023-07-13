@@ -7,7 +7,7 @@ const ItemModal = ({ selectedCard, onClose, onDelete }) => {
   const handleDelete = () => {
     onDelete(selectedCard);
   };
-  const isOwn = selectedCard.owner._id === user._id;
+  const isOwn = selectedCard.owner === user._id;
   const itemDeleteButtonClassName = `modal_item-deletebutton ${
     isOwn ? "modal_item-deletebutton_visible" : "modal_item-deletebutton_hidden"
   }`;
@@ -17,7 +17,7 @@ const ItemModal = ({ selectedCard, onClose, onDelete }) => {
         <button className=" modal_item-close" type="button" onClick={onClose} />
         <img
           className="modal_item-image"
-          src={selectedCard.link}
+          src={selectedCard.imageUrl}
           alt={selectedCard.name}
         />
         <div className="modal_item-infospace">

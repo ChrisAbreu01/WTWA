@@ -1,12 +1,12 @@
 import React from "react";
 import ItemCard from "../ItemCard/ItemCard";
-// import { defaultClothingItems } from "../../utils/constants";
 import "./ClothesSection.css";
 
 const ClothesSection = ({
   onSelectCard,
   onCreateModal,
   defaultClothingItems,
+  onItemLike,
 }) => {
   return (
     <div className="clothessection">
@@ -16,7 +16,7 @@ const ClothesSection = ({
         </div>
         <div className="clothessection-addnew">
           <button
-            className="clothessection-button"
+            className="clothessection-button clothessection-add-button"
             onClick={onCreateModal}
             type="button"
           >
@@ -29,7 +29,8 @@ const ClothesSection = ({
           <ItemCard
             card={element}
             onSelectCard={onSelectCard}
-            key={element?.id?.toString()}
+            key={element?._id?.toString()}
+            onItemLike={onItemLike}
           />
         ))}
       </div>

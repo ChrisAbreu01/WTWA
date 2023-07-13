@@ -1,13 +1,13 @@
-.register__label {
+.register__modal-label {
   font-family: "Cabinet Grotesk";
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
   line-height: 20px;
-  padding-top: 20px;
+  margin-top: 24px !important ;
 }
 
-.register__input {
+.register__modal-input {
   font-family: "Cabinet Grotesk";
   font-style: normal;
   font-weight: 700;
@@ -16,19 +16,21 @@
   border: none;
   border-bottom: 1px solid #000000;
   color: rgba(0, 0, 0, 0.5);
-  padding-bottom: 2px;
-  padding-top: 18px;
+  margin-top: 8px;
 }
-.register_or__log-in {
-    color: rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-    font-family: 'Cabinet Grotesk';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 20px;
-    position: relative;
-    left: 73px;
-    top: 43px;
-
+.register_modal-log-in {
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  font-family: "Cabinet Grotesk";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  position: relative;
+  left: 135px;
+  top: 43px;
+}
+.register__modal_namespace {
+  display: flex;
+  flex-direction: column;
 }
