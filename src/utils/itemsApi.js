@@ -29,7 +29,7 @@ export class ItemsApi {
       body: JSON.stringify({
         name: item.name,
         weather: item.weather,
-        imageUrl: item.link,
+        imageUrl: item.imageUrl,
         owner: item.owner,
       }),
     }).then(this.processServerResponse);

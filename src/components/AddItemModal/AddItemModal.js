@@ -49,7 +49,7 @@ const AddItemModal = ({ onAddItem, handleCloseModal }) => {
       onAddItem({
         name: nameInput,
         weather: weatherInput,
-        link: imageInput,
+        imageUrl: imageInput,
         likes: [],
         owner: user._id,
       });
