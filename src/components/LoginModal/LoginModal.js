@@ -34,6 +34,7 @@ function LoginModal({ isOpen, onClose, onLogin, toRegister }) {
       onClose();
     }
     setValidForm(false);
+    e.preventDefault();
   }
   function onEmailChange(e) {
     setEmail(e.target.value);

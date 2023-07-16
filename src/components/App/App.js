@@ -123,7 +123,7 @@ function App() {
     itemsApi
       .addItem(item)
       .then((newCard) => {
-        setClothingItems([item, ...clothingItems]);
+        setClothingItems([newCard, ...clothingItems]);
         handleCloseModal();
       })
       .catch((err) => {
