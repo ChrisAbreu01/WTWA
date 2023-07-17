@@ -27,11 +27,10 @@ function LoginModal({ isOpen, onClose, onLogin, toRegister }) {
   };
 
   function handleSubmit(e) {
+    e.preventDefault();
     if (isEmailValid(email) && isPasswordValid(password)) {
       setValidForm(true);
-      e.preventDefault();
       onLogin({ email, password });
-      onClose();
     }
     setValidForm(false);
     e.preventDefault();

@@ -16,9 +16,9 @@ function EditProfileModal({ onClose, onUpdateUser }) {
     return avatar.length >= 4;
   };
   const handleSubmit = (e) => {
+    e.preventDefault();
     if (isNameValid(name) && isUrlValid(avatar)) {
       setValidForm(true);
-      e.preventDefault();
       onUpdateUser(name, avatar);
     }
     setValidForm(false);

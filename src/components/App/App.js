@@ -160,6 +160,7 @@ function App() {
         if (res && res.token) {
           localStorage.setItem("token", res.token);
           isReloading(res.token);
+          setLoginModalOpen(false);
         }
       })
       .catch((error) => {
@@ -257,13 +258,6 @@ function App() {
                   onItemLike={handleItemLike}
                 />
               </Route>
-              {/* <Route exact path="/profile">
-              <Profile
-                onSelectCard={handleSelectedCard}
-                onCreateModal={handleCreateModal}
-                defaultClothingItems={clothingItems}
-              />
-            </Route> */}
             </Switch>
           </CurrentTemperatureUnitContext.Provider>
         </CurrentWeatherContext.Provider>

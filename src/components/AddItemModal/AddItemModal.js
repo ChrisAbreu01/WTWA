@@ -43,9 +43,9 @@ const AddItemModal = ({ onAddItem, handleCloseModal }) => {
 
   function handleSubmit(e) {
     // call onAddItem with appropriate arguments
+    e.preventDefault();
     if (isNameValid(nameInput) && isUrlValid(imageInput)) {
       setValidForm(true);
-      e.preventDefault();
       onAddItem({
         name: nameInput,
         weather: weatherInput,

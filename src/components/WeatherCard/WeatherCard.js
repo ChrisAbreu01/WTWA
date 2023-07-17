@@ -20,7 +20,7 @@ const WeatherCard = ({ weatherTemp = "" }) => {
   }
 
   let imageSrcUrl = "";
-  imageSrcUrl = imageSrc[0].url;
+  imageSrcUrl = imageSrc[0]?.url;
   return (
     <section className="weather" id="Weather">
       <div className="weather__info">
