@@ -81,4 +81,7 @@ export const weatherOptions = [
 export const APIkey = "e46bec6f352ff5e083dc942432494a41";
 export const latitude = 39.952583;
 export const longitude = -75.165222;
-export const baseUrl = "http://localhost:3001";
+export const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "deployed-backend-url"
+    : "http://localhost:3000";
