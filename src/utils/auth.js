@@ -1,6 +1,6 @@
 const BASE_URL =
   process.env.NODE_ENV === "production"
-    ? "api.wtw.twilightparadox.com"
+    ? "https://api.wtw.twilightparadox.com"
     : "http://localhost:3000";
 
 const processServerResponse = (res) => {
