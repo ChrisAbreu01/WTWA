@@ -83,5 +83,5 @@ export const latitude = 39.952583;
 export const longitude = -75.165222;
 export const baseUrl =
   process.env.NODE_ENV === "production"
-    ? "deployed-backend-url"
+    ? "api.wtw.twilightparadox.com"
     : "http://localhost:3000";
