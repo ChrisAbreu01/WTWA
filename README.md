@@ -6,7 +6,7 @@ The idea of the application is pretty simple - we make a call to an API, which t
 forecast. We collect the weather data, process it, and then based on the forecast, we recommend suitable clothing to the
 user.
 
-## Projrct Live  [Here](https://github.com/facebook/create-react-app)
+## Project Live  [Here](https://github.com/facebook/create-react-app)
 
 # Getting Started with Create React App
 
