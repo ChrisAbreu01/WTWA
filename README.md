@@ -6,11 +6,11 @@ The idea of the application is pretty simple - we make a call to an API, which t
 forecast. We collect the weather data, process it, and then based on the forecast, we recommend suitable clothing to the
 user.
 
-## Project Live  [Here](https://github.com/facebook/create-react-app)
+## Project Live  [Here](https://www.wtw.twilightparadox.com/#/)
 
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://www.wtw.twilightparadox.com/#/).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
